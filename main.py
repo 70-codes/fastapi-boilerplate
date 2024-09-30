@@ -1,6 +1,11 @@
 from fastapi import FastAPI
-app = FastAPI()
 
-@app.get('/')
+from services import create_db
+
+app = FastAPI()
+create_db()
+
+
+@app.get("/")
 async def root():
-    return {'message': 'Hello World'}
+    return {"message": "Hello World"}
