@@ -13,6 +13,7 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
+    id: str
     password: str
     created_at: str
     updated_at: str

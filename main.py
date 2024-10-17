@@ -1,10 +1,34 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+
+
+from async_fastapi_jwt_auth.exceptions import AuthJWTException
+from fastapi.responses import JSONResponse
+from async_fastapi_jwt_auth import AuthJWT
+from schemas.token import Settings
 
 from services import create_db
 
+from routes import user
+
 app = FastAPI()
 create_db()
+
+
+@app.exception_handler(AuthJWTException)
+def authjwt_exception_handler(request: Request, exc: AuthJWTException):
+    return JSONResponse(status_code=exc.status_code, content={"detail": exc.message})
+
+
+@AuthJWT.load_config
+def get_config():
+    return Settings()
+
+
+@app.exception_handler(AuthJWTException)
+def authjwt_exception_handler(request: Request, exc: AuthJWTException):
+    return JSONResponse(status_code=exc.status_code, content={"detail": exc.message})
+
 
 origins = [
     "http://localhost:5173",
@@ -22,6 +46,4 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+app.include_router(user.router)
