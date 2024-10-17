@@ -30,7 +30,6 @@ class ChangeUserPassword(BaseModel):
 
 class UserLogin(BaseModel):
     username: Optional[str]
-    email: Optional[str]
     password: str
 
 

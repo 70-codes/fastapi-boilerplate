@@ -9,7 +9,7 @@ from schemas.token import Settings
 
 from services import create_db
 
-from routes import user
+from routes import token, user
 
 app = FastAPI()
 create_db()
@@ -47,3 +47,4 @@ app.add_middleware(
 
 
 app.include_router(user.router)
+app.include_router(token.router)
