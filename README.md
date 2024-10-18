@@ -14,6 +14,6 @@ This is a FastAPI project template designed with a layered architecture. It is r
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/70-codes/fast-dev.git
-cd fast-dev
-pip install .
+git clone https://github.com/70-codes/fastapi-boilerplate.git
+cd fastapi-boilerplate
+pip install -r requirements.txt
